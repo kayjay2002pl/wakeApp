@@ -1,9 +1,7 @@
 
 import React, { Component } from 'react';
-import { Switch, View, Text, PropTypes, StyleSheet, TouchableOpacity } from 'react-native';
-import { ActivityIndicator } from 'react-native';
-import * as Font from "expo-font";
-import MyButton from '../MyButton';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+
 
 
 
