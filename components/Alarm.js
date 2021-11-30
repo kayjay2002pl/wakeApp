@@ -16,12 +16,22 @@ class Alarm extends Component {
         this.state = {
             height: new Animated.Value(200), // początkowa wartość wysokości itema
             expanded: false, // zwinięty
-            days: ["pn", "wt", "śr", "cz", "pt", "sb", "nd"]
+            opacity: "80",
+            set: false
         };
 
         this.toValue = 0  // przechowanie wartości animowanej, tutaj wysokości
         this.toggle = this.toggle.bind(this)
+        this.toggleSwitch = this.toggleSwitch.bind(this)
+        this.pressed = this.pressed.bind(this)
 
+    }
+    componentDidMount() {
+        if (this.props.toggle == 1) {
+            this.setState({ set: true })
+        } else {
+            this.setState({ set: false })
+        }
     }
 
     toggle() {
@@ -38,6 +48,12 @@ class Alarm extends Component {
         // tu zmień this.state.expanded na przeciwny
 
     }
+    toggleSwitch() {
+
+    }
+    pressed() {
+        this.props.delete(this.props.id)
+    }
 
 
     render() {
@@ -50,31 +66,35 @@ class Alarm extends Component {
                 backgroundColor: "#FF0000",
 
             }} >
-                <TouchableOpacity style={{ flex: 2, backgroundColor: "#FF5722", borderBottomWidth: 2, borderBottomColor: "#757575" }} onPress={this.toggle}>
+                <View style={{ flex: 2, backgroundColor: "#FF5722", borderBottomWidth: 2, borderBottomColor: "#757575" }} >
                     <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ flex: 3, justifyContent: 'center', }}>
-                            <Text style={{ fontSize: 62, }}>00:00</Text>
+                            <Text style={{ fontSize: 62, }}>{this.props.id}00:00</Text>
                         </View>
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <Switch></Switch>
+                            <Switch
+                                onValueChange={this.toggleSwitch}
+                                value={this.props.toggle == true}
+                            >
+                            </Switch>
                         </View>
                     </View>
                     <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ flex: 1 }}>
+                        <TouchableOpacity style={{ flex: 1 }} onPress={this.pressed}>
                             <ImageBackground source={Image} style={{ flex: 0.5 }} resizeMode="center"></ImageBackground>
-                        </View>
+                        </TouchableOpacity>
                         <View style={{ flex: 2 }}></View>
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <Switch></Switch>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'blue' }} onPress={this.toggle}>
+                            <TouchableOpacity style={{ flex: 1 }} onPress={this.toggle}><View style={{ flex: 1, backgroundColor: 'blue' }}><Text>A</Text></View></TouchableOpacity>
                         </View>
                     </View>
                     {this.state.expanded ?
-                        <View style={{ flex: 2 }}><Text style={{ flex: 1 }}>BBBB</Text><View style={{ flex: 1, flexDirection: 'row' }}>{this.state.days.map(result => {
-                            return <View style={{ flex: 1, margin: 1, justifyContent: 'center', alignItems: 'center', borderRadius: 50, backgroundColor: "red" }}><Text>{result}</Text></View>
+                        <View style={{ flex: 2 }}><Text style={{ flex: 1 }}>BBBB</Text><View style={{ flex: 1, flexDirection: 'row' }}>{Object.entries(this.props.days).map(([key, v]) => {
+                            return <View style={{ flex: 1, margin: 1, justifyContent: 'center', alignItems: 'center', borderRadius: 50, backgroundColor: "rgba(255, 204, 188)" }}><Text>{key}</Text></View>
                         })}</View></View>
                         :
                         <View style={{ flex: 1 }}><Text style={{ flex: 1 }}>BBBB</Text></View>}
-                </TouchableOpacity>
+                </View>
 
 
             </Animated.View >

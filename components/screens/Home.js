@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import Database from "../Database";
 
 
 
@@ -17,7 +18,14 @@ class Home extends Component {
         this.handleClick = this.handleClick.bind(this)
     }
     handleClick() {
+        Database.createTable();
         this.props.navigation.navigate("Main")
+    }
+    componentDidMount() {
+
+        Database.createTable();
+        Database.removeAll();
+
     }
 
     render() {

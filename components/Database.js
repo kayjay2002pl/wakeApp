@@ -4,9 +4,10 @@ const db = SQLite.openDatabase("jurowicz_kacper_1.db");
 
 class Database {
     static createTable() {
-        db.transaction((tx) => {
+        db.transaction(tx => {
             tx.executeSql(
-                "CREATE TABLE IF NOT EXISTS alarms (id integer primary key not null, time text, set integer, pon integer, wt integer, sr integer, czw integer, pt integer, sob integer, nd integer);"
+                "CREATE TABLE IF NOT EXISTS alarms (id integer primary key not null, time text, state integer, pn integer, wt integer, sr integer, cz integer, pt integer, sb integer, nd integer);"
+                //"CREATE TABLE IF NOT EXISTS alarms2 (id integer primary key not null, time text);"
             );
         });
     }
@@ -14,10 +15,10 @@ class Database {
     static add() {
         db.transaction(
             tx => {
-                tx.executeSql("INSERT INTO alarms (a, b) values ('xxx', 'yyy')");
+                tx.executeSql("INSERT INTO alarms ( time, state, pn, wt, sr, cz, pt, sb, nd ) values ('21:37', '1', '0', '0', '0', '0', '0', '0', '0')");
             }, function (tx, error) {
 
-                reject(error);
+                console.log(error);
 
             });
     }

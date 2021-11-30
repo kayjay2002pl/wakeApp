@@ -4,6 +4,7 @@ import { Switch, View, Text, PropTypes, StyleSheet } from 'react-native';
 import { ActivityIndicator } from 'react-native';
 import * as Font from "expo-font";
 import MyButton from '../MyButton';
+import CircleButton from "../CircleButton"
 
 
 
@@ -21,7 +22,7 @@ class Add extends Component {
 
     render() {
         return (
-            <View style={styles.main}></View>
+            <View style={styles.main}><CircleButton></CircleButton></View>
         );
     }
 }
