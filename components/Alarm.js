@@ -17,13 +17,15 @@ class Alarm extends Component {
             height: new Animated.Value(200), // początkowa wartość wysokości itema
             expanded: false, // zwinięty
             opacity: "80",
-            set: false
+            set: false,
+            days: this.props.days
         };
 
         this.toValue = 0  // przechowanie wartości animowanej, tutaj wysokości
         this.toggle = this.toggle.bind(this)
         this.toggleSwitch = this.toggleSwitch.bind(this)
         this.pressed = this.pressed.bind(this)
+        this.toggleday = this.toggleday.bind(this)
 
     }
     componentDidMount() {
@@ -51,6 +53,19 @@ class Alarm extends Component {
     toggleSwitch() {
 
     }
+    toggleday(day) {
+        var a = this.state.days
+        console.log(a[day]);
+        if (a[day])
+            a[day] = 0
+        else
+            a[day] = 1
+        console.log(a[day]);
+
+        this.props.update(this.props.id, day, a[day])
+        this.setState({ days: a })
+        console.log(this.state.days);
+    }
     pressed() {
         this.props.delete(this.props.id)
     }
@@ -69,7 +84,7 @@ class Alarm extends Component {
                 <View style={{ flex: 2, backgroundColor: "#FF5722", borderBottomWidth: 2, borderBottomColor: "#757575" }} >
                     <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ flex: 3, justifyContent: 'center', }}>
-                            <Text style={{ fontSize: 62, }}>{this.props.id}00:00</Text>
+                            <Text style={{ fontSize: 62, }}>{this.props.time}</Text>
                         </View>
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                             <Switch
@@ -85,12 +100,25 @@ class Alarm extends Component {
                         </TouchableOpacity>
                         <View style={{ flex: 2 }}></View>
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'blue' }} onPress={this.toggle}>
-                            <TouchableOpacity style={{ flex: 1 }} onPress={this.toggle}><View style={{ flex: 1, backgroundColor: 'blue' }}><Text>A</Text></View></TouchableOpacity>
+                            <TouchableOpacity style={{ width: '100%', height: '100%' }} onPress={this.toggle}><View style={{ flex: 1, backgroundColor: 'blue' }}><Text style={{ flex: 1 }}>A</Text></View></TouchableOpacity>
                         </View>
                     </View>
                     {this.state.expanded ?
-                        <View style={{ flex: 2 }}><Text style={{ flex: 1 }}>BBBB</Text><View style={{ flex: 1, flexDirection: 'row' }}>{Object.entries(this.props.days).map(([key, v]) => {
-                            return <View style={{ flex: 1, margin: 1, justifyContent: 'center', alignItems: 'center', borderRadius: 50, backgroundColor: "rgba(255, 204, 188)" }}><Text>{key}</Text></View>
+                        <View style={{ flex: 2 }}><Text style={{ flex: 1 }}>BBBB</Text><View style={{ flex: 1, flexDirection: 'row' }}>{Object.entries(this.state.days).map(([key, v]) => {
+                            return <TouchableOpacity
+                                style={{
+                                    flex: 1,
+                                    margin: 1,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    borderRadius: 50,
+                                    backgroundColor: "rgb(255, 204, 188)",
+                                    opacity: v ? 1 : 0.5
+                                }}
+                                onPress={() => this.toggleday(key)}
+                            >
+                                <Text>{key}</Text>
+                            </TouchableOpacity>
                         })}</View></View>
                         :
                         <View style={{ flex: 1 }}><Text style={{ flex: 1 }}>BBBB</Text></View>}

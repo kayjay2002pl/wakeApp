@@ -17,6 +17,7 @@ class AlarmList extends Component {
             alarms: []
         };
         this.delete = this.delete.bind(this)
+        this.update = this.update.bind(this)
 
     }
     componentDidMount() {
@@ -31,8 +32,9 @@ class AlarmList extends Component {
             console.log(this.state.alarms);
         })
     }
-    update() {
-
+    update(id, which, val) {
+        console.log(id, which, val);
+        Database.update(id, which, val);
     }
     delete(ida) {
         console.log("działam");
@@ -49,7 +51,7 @@ class AlarmList extends Component {
                 {
                     this.state.alarms.map(a => {
                         var tab = { pn: a.pn, wt: a.wt, sr: a.sr, cz: a.cz, pt: a.pt, sb: a.sb, nd: a.nd }
-                        return <Alarm toggle={a.state} days={tab} id={a.id} delete={this.delete}></Alarm>
+                        return <Alarm toggle={a.state} days={tab} id={a.id} delete={this.delete} update={this.update} time={a.time}></Alarm>
                     })
                 }
 

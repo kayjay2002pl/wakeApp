@@ -31,7 +31,11 @@ class Main extends Component {
             console.log(this.state.alarms);
         })
     }
-    add() {
+    reRender = () => {
+        // calling the forceUpdate() method
+        this.forceUpdate();
+    };
+    /*add() {
         Database.add();
         Database.getAll().then((all) => {
 
@@ -41,7 +45,14 @@ class Main extends Component {
             console.log(x.rows._array[0]);
             this.setState({ alarms: x.rows._array })
             console.log(this.state.alarms);
+            console.log("ABC");
+            //const s = '01-01-1970 00:03:44';
+            const d = new Date('December 17, 1995 03:24:00');
+            console.log(d.getHours() + ":" + d.getMinutes());
         })
+    }*/
+    add() {
+        this.props.navigation.navigate("Add")
     }
 
     render() {

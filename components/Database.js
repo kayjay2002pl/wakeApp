@@ -15,7 +15,7 @@ class Database {
     static add() {
         db.transaction(
             tx => {
-                tx.executeSql("INSERT INTO alarms ( time, state, pn, wt, sr, cz, pt, sb, nd ) values ('21:37', '1', '0', '0', '0', '0', '0', '0', '0')");
+                tx.executeSql("INSERT INTO alarms ( time, state, pn, wt, sr, cz, pt, sb, nd ) values ('21:37', '1', '1', '1', '0', '0', '0', '0', '0')");
             }, function (tx, error) {
 
                 console.log(error);
