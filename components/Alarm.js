@@ -5,6 +5,7 @@ import { ActivityIndicator } from 'react-native';
 import * as Font from "expo-font";
 import MyButton from './MyButton';
 import Image from '../assets/trash.png'
+import Arrow from '../assets/arrow.png'
 
 
 
@@ -63,8 +64,8 @@ class Alarm extends Component {
         console.log(a[day]);
 
         this.props.update(this.props.id, day, a[day])
-        this.setState({ days: a })
-        console.log(this.state.days);
+        this.setState({ days: a }, () => console.log(this.state.days))
+
     }
     pressed() {
         this.props.delete(this.props.id)
@@ -99,8 +100,8 @@ class Alarm extends Component {
                             <ImageBackground source={Image} style={{ flex: 0.5 }} resizeMode="center"></ImageBackground>
                         </TouchableOpacity>
                         <View style={{ flex: 2 }}></View>
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'blue' }} onPress={this.toggle}>
-                            <TouchableOpacity style={{ width: '100%', height: '100%' }} onPress={this.toggle}><View style={{ flex: 1, backgroundColor: 'blue' }}><Text style={{ flex: 1 }}>A</Text></View></TouchableOpacity>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={this.toggle}>
+                            <TouchableOpacity style={{ width: '100%', height: '100%' }} onPress={this.toggle}><View style={{ flex: 1 }}><ImageBackground source={Arrow} style={{ flex: 0.5, transform: [{ rotate: this.state.expanded ? '180deg' : '0deg' }] }} resizeMode="center"></ImageBackground></View></TouchableOpacity>
                         </View>
                     </View>
                     {this.state.expanded ?
